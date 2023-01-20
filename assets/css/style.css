@@ -1,0 +1,28 @@
+#game {
+  width: 400px;
+  height: 400px;
+  margin: 20px auto 0;
+  background-color: #000;
+  position: relative;
+}
+
+.snake,
+.apple {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #aaa;
+  position: absolute;
+}
+
+.snake {
+
+  background-color: #0a0;
+  top: 20px;
+  left: 40px;
+}
+
+.apple {
+  background-color: #a00;
+  top: 40px;
+  left: 80px;
+}
