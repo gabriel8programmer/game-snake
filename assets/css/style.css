@@ -6,22 +6,22 @@
   position: relative;
 }
 
-.snake,
-.apple {
+#snake,
+#apple {
   width: 20px;
   height: 20px;
   border: 1px solid #aaa;
   position: absolute;
 }
 
-.snake {
+#snake {
 
   background-color: #0a0;
   top: 20px;
   left: 40px;
 }
 
-.apple {
+#apple {
   background-color: #a00;
   top: 40px;
   left: 80px;
