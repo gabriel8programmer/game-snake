@@ -1,20 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #222;
+}
+
 #game {
   width: 400px;
   height: 400px;
   margin: 20px auto 0;
   background-color: #000;
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#score,
+.container {
+  border: 1px solid #eee;
 }
 
 #score {
-  position: absolute;
-  top: 0;
-  left: 20px;
-  width: 80%;
-  height: 50px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 20px;
 }
 
 #score span {
@@ -22,6 +35,10 @@
   font-size: 20px;
   font-family: consolas, sans-serif;
   text-transform: uppercase;
+}
+
+.container {
+  flex: 1;
 }
 
 #snake,

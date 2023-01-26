@@ -1,24 +1,24 @@
 
 
 //classes
-
 class Game {
 
   WIDTH = 400
   HEIGHT = 400
   FPS = 60
+  score = 0
 
   constructor(element) {
     this.element = element
   }
 
-  randint(rand) {
-    return Math.round(Math.random() * (rand + 1))
+  randint(initial, rand) {
+    return Math.round(Math.random() * rand) + initial
   }
 
   defineNewApple() {
-    this.apple.x = this.randint(this.WIDTH - 20)
-    this.apple.y = this.randint(this.HEIGHT - 20)
+    this.apple.x = this.randint(0, this.WIDTH - 20)
+    this.apple.y = this.randint(60, this.HEIGHT - 20 - 60)
     this.apple.update()
   }
 
@@ -46,17 +46,23 @@ class Game {
     this.snake.pos = this.snake.initialXY
 
     this.snake.update(this.element)
+
     //run
-    //this.run()
+    this.run()
   }
 
   update() {
+
+    window.addEventListener("keydown", (e) => {
+      this.defineNewApple()
+    })
 
   }
 
   run() {
 
     setInterval(() => {
+      this.update()
     }, 1000 / this.FPS)
 
   }
