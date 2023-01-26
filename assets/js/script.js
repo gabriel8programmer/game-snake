@@ -8,18 +8,27 @@ class Game {
   HEIGHT = 400
   FPS = 60
 
+  constructor(element) {
+    this.element = element
+  }
+
   randint(rand) {
     return Math.round(Math.random() * (rand + 1))
+  }
+
+  defineNewApple() {
+    this.apple.x = this.randint(this.WIDTH - 20)
+    this.apple.y = this.randint(this.HEIGHT - 20)
+    this.apple.update()
   }
 
   //init the game
   start() {
 
-    //define position of the apple
     this.apple = new Apple(document.getElementById("apple"))
-    this.apple.x = this.randint(this.WIDTH - 20)
-    this.apple.y = this.randint(this.HEIGHT - 20)
-    this.apple.update()
+
+    //define position fo apple
+    this.defineNewApple()
 
     //define position of the snake
     this.snake = new Snake(document.getElementById("snake"))
@@ -35,8 +44,8 @@ class Game {
 
     //attribute position initial
     this.snake.pos = this.snake.initialXY
-    this.snake.update()
 
+    this.snake.update(this.element)
     //run
     //this.run()
   }
@@ -68,13 +77,26 @@ class Snake {
   }
 
   addElement() {
-    const element = this.element
+
+    const element = document.createElement("div")
+    element.setAttribute("class", "snake-pos")
     this.elements.push(element)
   }
 
-  update() {
-    this.element.style.left = `${this.x}px`
-    this.element.style.top = `${this.y}px`
+  update(screen) {
+
+    //count positions in array and add other element
+    for (let c = 1; c < this.pos.length; c++) { this.addElement() }
+
+    this.elements.map(element => {
+      screen.appendChild(element)
+    })
+
+    this.elements.map((element, index) => {
+      element.style.left = `${this.pos[index][0]}px`
+      element.style.top = `${this.pos[index][1]}px`
+    })
+
   }
 
 }
@@ -98,6 +120,6 @@ class Apple {
 }
 
 window.addEventListener("load", () => {
-  const game = new Game()
+  const game = new Game(document.getElementById("game"))
   game.start()
 })

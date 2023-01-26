@@ -6,23 +6,48 @@
   position: relative;
 }
 
+#score {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 80%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#score span {
+  color: white;
+  font-size: 20px;
+  font-family: consolas, sans-serif;
+  text-transform: uppercase;
+}
+
 #snake,
-#apple {
+#apple,
+.snake-pos {
   width: 20px;
   height: 20px;
   border: 1px solid #aaa;
   position: absolute;
 }
 
+#snake,
+.snake-pos,
+#apple {
+  border: 1px solid #000;
+}
+
 #snake {
 
-  background-color: #0a0;
-  top: 20px;
-  left: 40px;
+  background-color: #090;
+}
+
+.snake-pos {
+  background-color: #595;
 }
 
 #apple {
   background-color: #a00;
-  top: 40px;
-  left: 80px;
 }
