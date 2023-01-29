@@ -120,20 +120,30 @@ class Game {
     window.addEventListener("keydown", (e) => {
       const key = e.key
 
+      const dir = this.snake.direction
+
       if (key === "ArrowRight") {
-        this.snake.direction = 0
+        if (dir !== 1) {
+          this.snake.direction = 0
+        }
       }
 
       if (key === "ArrowLeft") {
-        this.snake.direction = 1
+        if (dir !== 0) {
+          this.snake.direction = 1
+        }
       }
 
       if (key === "ArrowDown") {
-        this.snake.direction = 2
+        if (dir !== 3) {
+          this.snake.direction = 2
+        }
       }
 
       if (key === "ArrowUp") {
-        this.snake.direction = 3
+        if (dir !== 2) {
+          this.snake.direction = 3
+        }
       }
     })
 
@@ -163,7 +173,7 @@ class Snake {
   dx = 0
   dy = 0
 
-  SPEED = 2
+  SPEED = 1
 
   constructor(element, x, y) {
 
