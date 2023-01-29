@@ -82,6 +82,27 @@ class Game {
 
   }
 
+  snakeCollidedWithApple() {
+
+    //apple xy
+    const ax = this.apple.x
+    const ay = this.apple.y
+
+    //snake xy
+    const sx = this.snake.x
+    const sy = this.snake.y
+
+    //test collision x and y
+    if (sx < (ax + 20) &&
+      (sx + 20) > ax &&
+      sy < (ay + 20) &&
+      (sy + 20) > ay) {
+      return true
+    }
+
+    return false
+  }
+
   update() {
 
     //move the snake
@@ -115,6 +136,11 @@ class Game {
         this.snake.direction = 3
       }
     })
+
+    //collision with the Apple
+    if (this.snakeCollidedWithApple()) {
+      this.defineNewApple()
+    }
 
   }
 
