@@ -17,8 +17,8 @@ class Game {
   }
 
   defineNewApple() {
-    this.apple.x = this.randint(0, this.WIDTH - 20)
-    this.apple.y = this.randint(60, this.HEIGHT - 20 - 60)
+    this.apple.x = this.randint(0, this.WIDTH - 21)
+    this.apple.y = this.randint(0, this.HEIGHT - 21)
     this.apple.update()
   }
 
@@ -31,30 +31,89 @@ class Game {
     this.defineNewApple()
 
     //define position of the snake
-    this.snake = new Snake(document.getElementById("snake"))
+    const snakeX = (this.WIDTH / 2) - 10
+    const snakeY = (this.HEIGHT / 2) - 10
+    this.snake = new Snake(document.getElementById("snake"), snakeX, snakeY)
 
-    //define initial position
-    this.snake.initialXY = [
+    this.snake.render(this.element)
 
-      [(this.WIDTH / 2) - 10, (this.HEIGHT / 2) - 10],
-      [(this.WIDTH / 2) - 10, (this.HEIGHT / 2) - 10 + 20],
-      [(this.WIDTH / 2) - 10, (this.HEIGHT / 2) - 10 + 40]
-
-    ]
-
-    //attribute position initial
-    this.snake.pos = this.snake.initialXY
-
-    this.snake.update(this.element)
+    this.snake.update()
 
     //run
     this.run()
+
+  }
+
+  snakeExitedScreenX() {
+    //if snake exited of the screen in axis x
+    if (this.snake.x < 0 ||
+      this.snake.x > this.WIDTH - 20) {
+      return true
+    }
+    return false
+  }
+
+  snakeExitedScreenY() {
+    //if snake exited of the screen in axis y
+    if (this.snake.y < 0 ||
+      this.snake.y > this.HEIGHT - 20) {
+      return true
+    }
+    return false
+  }
+
+  moveScreenInStartScreen(x, y) {
+
+    //test position in x
+    if (x < 0) {
+      this.snake.x = (this.WIDTH - 20)
+    }
+    else if (x > (this.WIDTH - 20)) {
+      this.snake.x = 0
+    }
+
+    //test position in y
+    if (y < 0) {
+      this.snake.y = (this.HEIGHT - 20)
+    }
+    else if (y > (this.HEIGHT - 20)) {
+      this.snake.y = 0
+    }
+
   }
 
   update() {
 
+    //move the snake
+    this.snake.move()
+    this.snake.update()
+
+    //test position of screen
+    if (this.snakeExitedScreenX() ||
+      this.snakeExitedScreenY()) {
+      this.moveScreenInStartScreen(this.snake.x,
+        this.snake.y)
+    }
+
+    //click and buttons 
     window.addEventListener("keydown", (e) => {
-      this.defineNewApple()
+      const key = e.key
+
+      if (key === "ArrowRight") {
+        this.snake.direction = 0
+      }
+
+      if (key === "ArrowLeft") {
+        this.snake.direction = 1
+      }
+
+      if (key === "ArrowDown") {
+        this.snake.direction = 2
+      }
+
+      if (key === "ArrowUp") {
+        this.snake.direction = 3
+      }
     })
 
   }
@@ -71,39 +130,69 @@ class Game {
 
 class Snake {
 
-  initialXY = [[], [], []]
-  pos = [[], [], []]
+  //directions
+  //d0 - right //d1 - left // d2 - down //d3 - up
+  direction = 3
 
-  constructor(element) {
+  dx = 0
+  dy = 0
+
+  SPEED = 2
+
+  constructor(element, x, y) {
 
     this.element = element
     this.elements = []
     this.elements.push(this.element)
 
+    this.x = x
+    this.y = y
+
+    this.initX = this.x
+    this.initY = this.y
   }
 
-  addElement() {
-
-    const element = document.createElement("div")
-    element.setAttribute("class", "snake-pos")
-    this.elements.push(element)
-  }
-
-  update(screen) {
-
-    //count positions in array and add other element
-    for (let c = 1; c < this.pos.length; c++) { this.addElement() }
+  render(screen) {
 
     this.elements.map(element => {
       screen.appendChild(element)
     })
 
-    this.elements.map((element, index) => {
-      element.style.left = `${this.pos[index][0]}px`
-      element.style.top = `${this.pos[index][1]}px`
-    })
+  }
+
+  update() {
+    //element position
+    this.element.style.left = `${this.x}px`
+    this.element.style.top = `${this.y}px`
+  }
+
+  move() {
+
+    this.dx = 0
+    this.dy = 0
+
+    if (this.direction === 0) {
+      this.dx += 1
+    }
+
+    else if (this.direction === 1) {
+      this.dx -= 1
+    }
+
+    else if (this.direction === 2) {
+      this.dy += 1
+    }
+
+    else if (this.direction === 3) {
+      this.dy -= 1
+    }
+
+    //move the snake
+    this.x += (this.dx * this.SPEED)
+    this.y += (this.dy * this.SPEED)
 
   }
+
 
 }
 
@@ -126,6 +215,6 @@ class Apple {
 }
 
 window.addEventListener("load", () => {
-  const game = new Game(document.getElementById("game"))
+  const game = new Game(document.querySelector(".container"))
   game.start()
 })

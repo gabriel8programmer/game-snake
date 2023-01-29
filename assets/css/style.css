@@ -9,10 +9,9 @@ body {
 
 #game {
   width: 400px;
-  height: 400px;
+  height: 460px;
   margin: 20px auto 0;
   background-color: #000;
-  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -39,6 +38,7 @@ body {
 
 .container {
   flex: 1;
+  position: relative;
 }
 
 #snake,
