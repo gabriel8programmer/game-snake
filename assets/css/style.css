@@ -1,70 +1,18 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
+/*formatting default for body of webpage*/
 body {
-  background-color: #222;
-}
-
-#game {
-  width: 400px;
-  height: 460px;
-  margin: 20px auto 0;
-  background-color: #000;
+  background-color: #ddd;
   display: flex;
-  flex-direction: column;
-}
-
-#score,
-.container {
-  border: 1px solid #eee;
-}
-
-#score {
-  height: 60px;
-  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
+  height: 650px;
+  overflow: hidden;
 }
 
-#score span {
-  color: white;
-  font-size: 20px;
-  font-family: consolas, sans-serif;
-  text-transform: uppercase;
-}
+/*canvas*/
+#canvas {
 
-.container {
-  flex: 1;
-  position: relative;
-}
-
-#snake,
-#apple,
-.snake-pos {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #aaa;
-  position: absolute;
-}
-
-#snake,
-.snake-pos,
-#apple {
   border: 1px solid #000;
+  background-color: #111;
 }
 
-#snake {
-
-  background-color: #090;
-}
-
-.snake-pos {
-  background-color: #595;
-}
-
-#apple {
-  background-color: #a00;
-}
+/*end canvas*/
